@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: ws-cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Valentin-java/cloud-config.git
+          skip-ssl-validation: true
+          username: ${GIT_USERNAME:Valentin-java}
+          password: ${GIT_PASSWORD:12032015Vl}
+          search-paths: {application}
+          # default-label: master
+          clone-on-start: true
+          timeout: 15
+  lifecycle:
+    timeout-per-shutdown-phase: 45s
+
+server:
+  port: 8888
+  shutdown: graceful
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+    enabled: false
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    root: info
